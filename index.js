@@ -36,7 +36,7 @@ app. get ('/', (req, res) => {
 
 app.post('/', (req, res)  => {
     console.log('form sent data')
-    let task = reg.body.task
+    let task = req.body.task
     readFile('./tasks') 
     .then((tasks) => {
         tasks.push(req.body.task)
@@ -50,7 +50,7 @@ app.post('/', (req, res)  => {
             res.redirect('/')
         })
     })
-      }) 
+}) 
 
 
 app. listen(3001, () => {
