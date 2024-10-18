@@ -1,9 +1,5 @@
 [
   {
-    "id": 1,
-    "task": "Study HTML"
-  },
-  {
     "id": 2,
     "task": "Study CSS"
   },
@@ -21,7 +17,7 @@
   },
   {
     "id": 6,
-    "task": "Study JSON"
+    "task": "study objects"
   },
   {
     "id": 7,
