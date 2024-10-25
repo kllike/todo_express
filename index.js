@@ -24,7 +24,7 @@ const readFile = (filename) => {
 
 const writeFile = (filename, data) => {
     return new Promise((resolve, reject) => {
-        fs.writeFile(filename, data, 'utf-8',err  => {
+        fs.writeFile(filename, data, 'utf8', err => {
             if (err) {
               console.error(err);
               return;
@@ -32,19 +32,33 @@ const writeFile = (filename, data) => {
             resolve(true)
         });
     })
-} 
+}
 
 app.get('/', (req, res) => {
     readFile('./tasks.json')
         .then((tasks) => { 
-            res.render('index', {tasks: tasks})
+            res.render('index', {
+                tasks: tasks,
+                error: null
+            })
     })   
 })
 
 app.post('/', (req, res) => {
     console.log('form sent data')
     let task = req.body.task
-    readFile('./tasks.json')
+    let error = null
+    if(task.trim().length === 0){
+        error = 'Please insert correct task data'
+        readFile('./tasks.json')
+        .then((tasks) => { 
+            res.render('index', {
+                tasks: tasks, 
+                error: error
+            })
+        }) 
+    } else{
+        readFile('./tasks.json')
         .then((tasks) => {
             let index
             if(tasks.length === 0){
@@ -62,9 +76,13 @@ app.post('/', (req, res) => {
             console.log(tasks)
 
             const data = JSON.stringify(tasks, null, 2)
+
             writeFile('./tasks.json', data)
+
             res.redirect('/')
-    })
+        })
+    } 
+
 })
 
 app.get('/delete-task/:taskId', (req, res) => {
@@ -76,20 +94,21 @@ app.get('/delete-task/:taskId', (req, res) => {
                     tasks.splice(index, 1)
                 } 
             });
-            
+
             const data = JSON.stringify(tasks, null, 2)
+
             writeFile('./tasks.json', data)
+
             res.redirect('/')
         })
 })
 
-app.get('/delete-tasks', (req, res)=>{
-    tasks = []
-    const data =JSON.stringify(tasks, null, 2)
+app.get('/delete-tasks', (req, res) => {
+    tasks = [] 
+    const data = JSON.stringify(tasks, null, 2)
     writeFile('./tasks.json', data)
-    res.redirect('./')
-    })
-
+    res.redirect('/')
+})
 
 app.listen(3001, () => {
     console.log('Server is started http://localhost:3001')
