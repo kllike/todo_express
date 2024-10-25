@@ -1,5 +1,9 @@
 [
   {
+    "id": 1,
+    "task": "done"
+  },
+  {
     "id": 2,
     "task": "Study CSS"
   },
@@ -8,19 +12,7 @@
     "task": "Study JS"
   },
   {
-    "id": 4,
-    "task": "Study Node. Js"
-  },
-  {
-    "id": 5,
-    "task": "Study HTTP"
-  },
-  {
     "id": 6,
-    "task": "study objects"
-  },
-  {
-    "id": 7,
-    "task": "study objects"
+    "task": "New update for JSON"
   }
 ]
